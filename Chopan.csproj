@@ -8,4 +8,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Resource Include="Source\Directory.png" />
+    <Resource Include="Source\File.jpg" />
+  </ItemGroup>
+
 </Project>

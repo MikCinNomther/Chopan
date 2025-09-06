@@ -14,7 +14,7 @@ namespace Chopan.Kernel
     {
         public enum LoginState
         {
-            Success,PasswordError,Locked,NetworkError,ServerError,UnknownError,UserError
+            Success, PasswordError, Locked, NetworkError, ServerError, UnknownError, UserError
         }
 
         public static async Task<LoginState> Login(string username, string password)
@@ -25,7 +25,7 @@ namespace Chopan.Kernel
             string ResultStr = "";
             try
             {
-                ResultStr = (await httpClient.GetStringAsync($"{Properties.ServerIP}/Login.php?username={username}&password={password}"));
+                ResultStr = await httpClient.GetStringAsync($"{Properties.ServerIP}/Login.php?username={username}&password={password}");
             }
             catch
             {
@@ -35,16 +35,20 @@ namespace Chopan.Kernel
             if (ResultStr == "Success")
             {
                 Result = LoginState.Success;
-            }else if(ResultStr == "PasswordError")
+            }
+            else if (ResultStr == "PasswordError")
             {
                 Result = LoginState.PasswordError;
-            }else if (ResultStr == "UserError")
+            }
+            else if (ResultStr == "UserError")
             {
                 Result = LoginState.UserError;
-            }else if(ResultStr.IndexOf("Found") != -1)
+            }
+            else if (ResultStr.IndexOf("Found") != -1)
             {
                 Result = LoginState.ServerError;
-            }else if(ResultStr == "Locked")
+            }
+            else if (ResultStr == "Locked")
             {
                 Result = LoginState.Locked;
             }
@@ -52,27 +56,21 @@ namespace Chopan.Kernel
             return Result;
         }
 
-        public static LoginState LoginSync(string username,string password)
-        {
-            Task<LoginState> task = Login(username, password);
-            return task.Result;
-        }
+        // 移除同步方法，全部用 async/await
         string Username, Password;
-        public ChopanClient(String UserName,String PassWord)
+        public ChopanClient(string UserName, string PassWord)
         {
             this.Username = UserName;
             this.Password = PassWord;
         }
 
-        public LoginState State
+        // State 屬性改為 async 方法
+        public async Task<LoginState> GetStateAsync()
         {
-            get
-            {
-                return LoginSync(Username, Password);
-            }
+            return await Login(this.Username, this.Password);
         }
 
-        public string[] GetDirectories(String DirectoryRoot = "/")
+        public async Task<string[]> GetDirectoriesAsync(string DirectoryRoot = "/")
         {
             DirectoryRoot = UrlEncoder.Default.Encode(DirectoryRoot);
             try
@@ -114,7 +112,7 @@ namespace Chopan.Kernel
 
         public void MoveFile(String SourceFilePath,String FileNewPath)
         {
-            new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/MoveFile.php?FilePath={UrlEncoder.Default.Encode(SourceFilePath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}");
+            new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/Download.php?FilePath={UrlEncoder.Default.Encode(SourceFilePath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}");
         }
     }
 }

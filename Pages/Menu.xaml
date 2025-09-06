@@ -43,9 +43,9 @@
         </Grid>
         <Grid Grid.Row="1">
             <GroupBox Margin="5">
-                <Grid>
-                    
-                </Grid>
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="FileDialog"/>
+                </ScrollViewer>
             </GroupBox>
         </Grid>
     </Grid>

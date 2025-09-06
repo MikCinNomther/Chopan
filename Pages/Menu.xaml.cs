@@ -24,10 +24,27 @@ namespace Chopan.Pages
         {
             InitializeComponent();
         }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        int r = 0;
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            r = 0;
             ApplicationValues.MainCF.Taout.Visibility = Visibility.Visible;
+            foreach(string FN in await ApplicationValues.ChopanClient.GetDirectoriesAsync())
+            {
+                this.FileDialog.Children.Add(new Controls.DirectoryBox(FN)
+                {
+                    Margin = new Thickness(0, (r++) * 50, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Top
+                });
+            }
+            foreach (string FN in ApplicationValues.ChopanClient.GetFiles("/"))
+            {
+                this.FileDialog.Children.Add(new Controls.FileBox(FN)
+                {
+                    Margin = new Thickness(0, (r++) * 50, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Top
+                });
+            }
         }
     }
 }

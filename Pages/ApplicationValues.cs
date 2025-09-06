@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chopan.Kernel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,5 +27,7 @@ namespace Chopan.Pages
                 GC.Collect();
             }
         }
+
+        public static ChopanClient ChopanClient = null;
     }
 }
