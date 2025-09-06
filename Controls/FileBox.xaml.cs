@@ -55,5 +55,11 @@ namespace Chopan.Controls
                 }
             }
         }
+
+        private void Rename_Click(object sender, RoutedEventArgs e)
+        {
+            RenameFile renameFile = new RenameFile($"{ApplicationValues.Menu.DirectoryPathShow.Text}{FN.Text}");
+            renameFile.ShowDialog();
+        }
     }
 }

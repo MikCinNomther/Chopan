@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chopan.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,21 @@ namespace Chopan.Controls
             {
                 this.FN.Text = Name;
             };
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确认删除此文件夹？", "确认", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                ApplicationValues.ChopanClient.DeleteDirectory($"{ApplicationValues.Menu.DirectoryPathShow.Text}{FN.Text}");
+                ApplicationValues.Menu.Flush();
+            }
+        }
+
+        private void Rename_Click(object sender, RoutedEventArgs e)
+        {
+            RenameDirectory renameDirectory = new RenameDirectory($"{ApplicationValues.Menu.DirectoryPathShow.Text}{FN.Text}");
+            renameDirectory.ShowDialog();
         }
     }
 }

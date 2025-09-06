@@ -70,7 +70,10 @@ namespace Chopan.Kernel
         {
             return await Login(this.Username, this.Password);
         }
-
+        public void CreateDirectory(String DirectoryPath)
+        {
+            new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/CreateDirectory.php?DirectoryPath={UrlEncoder.Default.Encode(DirectoryPath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}");
+        }
         public async Task<string[]> GetDirectoriesAsync(string DirectoryRoot = "/")
         {
             DirectoryRoot = UrlEncoder.Default.Encode(DirectoryRoot);
@@ -84,6 +87,36 @@ namespace Chopan.Kernel
             {
                 return null;
             }
+        }
+
+        public void MoveDirectory(String SourceDirectoryPath, String DirectoryNewPath)
+        {
+            new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/MoveDirectory.php?SourceDirectoryPath={UrlEncoder.Default.Encode(SourceDirectoryPath)}&DirectoryNewPath={UrlEncoder.Default.Encode(DirectoryNewPath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}").Wait();
+        }
+
+        public void RenameDirectory(string directoryPath, string newDirectoryName)
+        {
+            if (string.IsNullOrEmpty(directoryPath) || string.IsNullOrEmpty(newDirectoryName))
+                return;
+
+            // 去掉末尾斜線，保證路徑正確
+            string path = directoryPath.TrimEnd('/');
+
+            int lastSlash = path.LastIndexOf('/');
+            string parentPath = lastSlash <= 0 ? "/" : path.Substring(0, lastSlash + 1);
+            string newPath = parentPath + newDirectoryName;
+
+            MoveDirectory(path, newPath);
+        }
+
+        public void RenameFile(string filePath, string newFileName)
+        {
+            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(newFileName))
+                return;
+            int lastSlash = filePath.LastIndexOf('/');
+            if (lastSlash < 0) return;
+            string newFilePath = filePath.Substring(0, lastSlash + 1) + newFileName;
+            MoveFile(filePath, newFilePath);
         }
 
         public string[] GetFiles(String DirectoryRoot)
@@ -119,14 +152,24 @@ namespace Chopan.Kernel
             return new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/Download.php?FilePath={UrlEncoder.Default.Encode(FilePath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}").Result;
         }
 
+        public void DeleteDirectory(String DirectoryPath)
+        {
+            new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/DeleteDirectory.php?DirectoryPath={UrlEncoder.Default.Encode(DirectoryPath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}");
+        }
+
         public void DeleteFile(String FilePath)
         {
             new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/Delete.php?FilePath={UrlEncoder.Default.Encode(FilePath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}");
         }
 
-        public void MoveFile(String SourceFilePath,String FileNewPath)
+        public void MoveFile(string sourceFilePath, string fileNewPath)
         {
-            new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/Download.php?FilePath={UrlEncoder.Default.Encode(SourceFilePath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}");
+            new HttpClient().GetByteArrayAsync(
+                $"{Properties.ServerIP}/MoveFile.php?FilePath={UrlEncoder.Default.Encode(sourceFilePath)}" +
+                $"&FileNewPath={UrlEncoder.Default.Encode(fileNewPath)}" +
+                $"&username={UrlEncoder.Default.Encode(this.Username)}" +
+                $"&password={UrlEncoder.Default.Encode(this.Password)}"
+            ).Wait();
         }
     }
 }

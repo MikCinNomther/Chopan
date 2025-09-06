@@ -22,6 +22,9 @@
                 <Button Click="Download_Click" x:Name="Download" Background="Transparent" Margin="0,2,0,2" HorizontalAlignment="Right" BorderBrush="Transparent">
                     <Image Source="/Source/Download.png"/>
                 </Button>
+                <Button x:Name="Rename" Click="Rename_Click" Background="Transparent" Margin="0,2,80,2" HorizontalAlignment="Right" BorderBrush="Transparent">
+                    <Image Source="/Source/Rename.png"/>
+                </Button>
             </Grid>
         </Grid>
     </GroupBox>

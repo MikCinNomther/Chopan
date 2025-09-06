@@ -33,10 +33,10 @@
                         </Grid>
                     </Border>
                 </Button>
-                <Button x:Name="Next" HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
+                <Button x:Name="CreateDirectory" Click="CreateDirectory_Click" HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
                     <Border Width="28" Height="28" Background="LightSkyBlue" CornerRadius="15,15,15,15" BorderThickness="4" BorderBrush="White">
                         <Grid>
-                            <TextBlock HorizontalAlignment="Center" Text="→" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Center" Text="□" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </Button>

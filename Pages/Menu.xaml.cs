@@ -120,5 +120,11 @@ namespace Chopan.Pages
 
             }
         }
+
+        private void CreateDirectory_Click(object sender, RoutedEventArgs e)
+        {
+            CreateNewDirectory newDirectory = new CreateNewDirectory();
+            newDirectory.ShowDialog();
+        }
     }
 }
