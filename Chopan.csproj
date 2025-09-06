@@ -9,7 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Source\Bin.png" />
+    <None Remove="Source\Download.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Source\Bin.png" />
     <Resource Include="Source\Directory.png" />
+    <Resource Include="Source\Download.png" />
     <Resource Include="Source\File.jpg" />
   </ItemGroup>
 

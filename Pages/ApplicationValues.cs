@@ -27,7 +27,7 @@ namespace Chopan.Pages
                 GC.Collect();
             }
         }
-
+        public static Menu Menu = null;
         public static ChopanClient ChopanClient = null;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Chopan.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Policy;
@@ -100,6 +101,19 @@ namespace Chopan.Kernel
             }
         }
 
+        public void Upload(String FilePath, string SavePath)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                MultipartFormDataContent form = new MultipartFormDataContent();
+                form.Add(new StringContent(this.Username), "username");
+                form.Add(new StringContent(this.Password), "password");
+                form.Add(new StringContent(SavePath), "SavePath");
+                byte[] Data = System.IO.File.ReadAllBytes(FilePath);
+                form.Add(new ByteArrayContent(Data), "Data", new FileInfo(FilePath).Name);
+                httpClient.PostAsync($"{Properties.ServerIP}/Upload.php", form).Wait();
+            }
+        }
         public byte[] DownloadData(String FilePath)
         {
             return new HttpClient().GetByteArrayAsync($"{Properties.ServerIP}/Download.php?FilePath={UrlEncoder.Default.Encode(FilePath)}&username={UrlEncoder.Default.Encode(this.Username)}&password={UrlEncoder.Default.Encode(this.Password)}").Result;

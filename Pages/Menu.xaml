@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       Loaded="Page_Loaded"
       Background="White"
+      AllowDrop="True"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Menu">
 
@@ -16,23 +17,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <TextBox Text="/" IsReadOnly="True" Margin="5,5,100,5"/>
+            <TextBox x:Name="DirectoryPathShow" Text="/" IsReadOnly="True" Margin="5,5,100,5"/>
             <WrapPanel Width="90" HorizontalAlignment="Right">
-                <Button HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
+                <Button x:Name="ToRoot" Click="ToRoot_Click" HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
                     <Border Width="28" Height="28" Background="LightSkyBlue" CornerRadius="15,15,15,15" BorderThickness="4" BorderBrush="White">
                         <Grid>
                             <TextBlock HorizontalAlignment="Center" Text="/" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </Button>
-                <Button HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
+                <Button x:Name="Perious" Click="Perious_Click" HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
                     <Border Width="28" Height="28" Background="LightSkyBlue" CornerRadius="15,15,15,15" BorderThickness="4" BorderBrush="White">
                         <Grid>
                             <TextBlock HorizontalAlignment="Center" Text="←" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </Button>
-                <Button HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
+                <Button x:Name="Next" HorizontalAlignment="Left" Width="30" Background="Transparent" BorderBrush="Transparent">
                     <Border Width="28" Height="28" Background="LightSkyBlue" CornerRadius="15,15,15,15" BorderThickness="4" BorderBrush="White">
                         <Grid>
                             <TextBlock HorizontalAlignment="Center" Text="→" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -41,7 +42,7 @@
                 </Button>
             </WrapPanel>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" x:Name="Drst" DragOver="MoveFileToIt">
             <GroupBox Margin="5">
                 <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                     <Grid x:Name="FileDialog"/>

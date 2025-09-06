@@ -16,6 +16,12 @@
             <Image Source="/Source/Directory.png" HorizontalAlignment="Left"/>
             <Grid Grid.Column="1">
                 <TextBlock x:Name="FN" VerticalAlignment="Center" HorizontalAlignment="Left" Text="xxx.xxx" FontSize="30" FontWeight="Bold" Margin="10,5,0,0"/>
+                <Button x:Name="Delete" Background="Transparent" Margin="0,2,50,2" HorizontalAlignment="Right" BorderBrush="Transparent">
+                    <Image Source="/Source/Bin.png"/>
+                </Button>
+                <Button x:Name="Download" Background="Transparent" Margin="0,2,0,2" HorizontalAlignment="Right" BorderBrush="Transparent">
+                    <Image Source="/Source/Download.png"/>
+                </Button>
             </Grid>
         </Grid>
     </GroupBox>

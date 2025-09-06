@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Chopan.Kernel;
+using Chopan.Pages;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +30,30 @@ namespace Chopan.Controls
             {
                 this.FN.Text = Name;
             };
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("确认删除此文件？","确认",MessageBoxButton.YesNo,MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                ApplicationValues.ChopanClient.DeleteFile($"{ApplicationValues.Menu.DirectoryPathShow.Text}{FN.Text}");
+                ApplicationValues.Menu.Flush();
+            }
+        }
+
+        private void Download_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = FN.Text;
+            saveFileDialog.Title = "选择保存位置";
+            if ((bool)saveFileDialog.ShowDialog())
+            {
+                if(saveFileDialog.FileName != "")
+                {
+                    Downloader downloader = new Downloader($"{ApplicationValues.Menu.DirectoryPathShow.Text}{FN.Text}", saveFileDialog.FileName);
+                    downloader.Show();
+                }
+            }
         }
     }
 }
