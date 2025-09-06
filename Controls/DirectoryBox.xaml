@@ -19,7 +19,7 @@
                 <Button Click="Delete_Click" x:Name="Delete" Background="Transparent" Margin="0,2,40,2" HorizontalAlignment="Right" BorderBrush="Transparent">
                     <Image Source="/Source/Bin.png"/>
                 </Button>
-                <Button x:Name="Rename" Click="Rename_Click" Background="Transparent" Margin="0,2,80,2" HorizontalAlignment="Right" BorderBrush="Transparent">
+                <Button x:Name="Rename" Click="Rename_Click" Background="Transparent" Margin="0,2,90,2" HorizontalAlignment="Right" BorderBrush="Transparent">
                     <Image Source="/Source/Rename.png"/>
                 </Button>
             </Grid>
